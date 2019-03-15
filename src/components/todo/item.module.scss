@@ -1,0 +1,59 @@
+.item {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    padding: 10px;
+    border-bottom: 1px solid silver;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    &.done {
+        .title {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+
+        .status {
+            button {
+                &:first-child {
+                    background-color: #04A0FF;
+                }
+            }
+        }
+    }
+
+    &.inProgress {
+        .title {
+            color: #009000;
+        }
+
+        .status {
+            button {
+                &:first-child {
+                    background-color: #54a656;
+                }
+            }
+        }
+    }
+
+    .title {
+        flex-grow: 1;
+        font-size: 20px;
+    }
+
+    .status {
+        width: 150px;
+
+        button {
+            border: 1px solid silver;
+
+            &:first-child {
+                width: 80px;
+                margin-right: 4px;
+                background-color: #f7ce74;
+            }
+        }
+    }
+}

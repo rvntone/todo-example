@@ -1,0 +1,12 @@
+.app {
+  text-align: center;
+
+  .appContent {
+    margin: 20px auto;
+    max-width: 600px;
+    width: 100%;
+    height: calc(100vh - 42px);
+    border: 1px solid silver;
+    text-align: left;
+  }
+}

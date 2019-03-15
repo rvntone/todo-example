@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    padding: 5px;
+
+    .title {
+        flex-grow: 1;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .tools {
+        width: 40px;
+
+        .tool {
+            display: inline-block;
+            padding: 5px;
+            line-height: 20px;
+            width: 20px;
+            height: 20px;
+            border: 1px solid silver;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: 500ms background-color, 500ms color;
+
+            &:hover {
+                background-color: #1110F0;
+                color: white;
+            }
+        }
+    }
+}
