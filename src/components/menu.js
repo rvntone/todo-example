@@ -11,6 +11,8 @@ export default class Menu extends Component {
         <Link to="/ruta3">Ruta 3</Link>
         <Link to="/ruta4">Ruta 4</Link>
         <Link to="/ruta4/ruta5">Ruta 4/5</Link>
+        <Link to="/ruta5">Ruta 5</Link>
+        <Link to="/ruta6">Ruta 6</Link>
       </div>
     );
   }
