@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { TodoContext } from './todoContext';
 
 import styles from './item.module.scss';
@@ -9,7 +11,6 @@ class Item extends Component {
     removeTask(pos);
   }
   onChangeStatus(changeStatus) {
-    console.log(changeStatus, this);
     const { pos } = this.props;
     changeStatus(pos);
   }
@@ -60,5 +61,8 @@ class Item extends Component {
     );
   }
 }
-
+Item.propTypes = {
+  item: PropTypes.object.isRequired,
+  pos: PropTypes.number.isRequired,
+};
 export default Item;
