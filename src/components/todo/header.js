@@ -8,6 +8,7 @@ export default class Header extends Component {
     this.onSaveClick = this.onSaveClick.bind(this);
   }
   async createNew(item) {
+    delete item.dirty;
     const config = {
       method: 'POST',
       body: JSON.stringify(item),
@@ -20,6 +21,7 @@ export default class Header extends Component {
     return await response.json();
   }
   async update(item) {
+    delete item.dirty;
     const config = {
       method: 'PUT',
       body: JSON.stringify(item),
@@ -46,6 +48,10 @@ export default class Header extends Component {
     const { list } = this.props;
     for (let pos in list) {
       const item = list[pos];
+      if (!item.dirty && !item.deleted) {
+        newList.push(item);
+        continue;
+      }
       if (!item.id) {
         if (item.deleted) {
           continue;

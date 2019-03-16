@@ -36,6 +36,7 @@ class Todo extends Component {
   onAddNewTask(task) {
     const { list } = this.state;
     task.status = 0;
+    task.dirty = true;
     list.push(task);
     this.setState({ list });
   }
@@ -43,6 +44,7 @@ class Todo extends Component {
     const { list } = this.state;
     const task = list[pos];
     task.status = task.status === 2 ? 0 : task.status + 1;
+    task.dirty = true;
     this.setState({ list });
   }
   render() {
