@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import Component0Index from './';
 import Component0 from './dumies/compontent0';
 import Component1 from './dumies/compontent1';
 import Component2 from './dumies/compontent2';
@@ -14,6 +15,7 @@ export default class AppRouter extends Component {
     return (
       <div className="content">
         <Switch>
+          <Route path="/ruta0" component={Component0Index} />
           <Route path="/(ruta1|ruta2)" component={Component1} />
           <Route path="/ruta2" component={Component2} />
           <Route path="/ruta3" render={() => <Component3 />} />
