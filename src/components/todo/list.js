@@ -11,6 +11,9 @@ class List extends Component {
       return <div>No items</div>;
     }
     return list.map((item, pos) => {
+      if (item.deleted) {
+        return null;
+      }
       return <Item key={pos} pos={pos} item={item} />;
     });
   }

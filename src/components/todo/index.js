@@ -14,10 +14,23 @@ class Todo extends Component {
       changeStatus: this.onChangeStatus,
       removeTask: this.onRemoveTask,
     };
+    this.setList = this.setList.bind(this);
+  }
+  async fetchingData() {
+    const url = 'http://localhost:3010/list';
+    const response = await fetch(url);
+    const list = await response.json();
+    this.setState({ list });
+  }
+  componentDidMount() {
+    this.fetchingData();
+  }
+  setList(list) {
+    this.setState({ list });
   }
   onRemoveTask(pos) {
     const { list } = this.state;
-    list.splice(pos, 1);
+    list[pos].deleted = true;
     this.setState({ list });
   }
   onAddNewTask(task) {
@@ -33,10 +46,10 @@ class Todo extends Component {
     this.setState({ list });
   }
   render() {
-    console.log('todocontext', this.context);
+    const { list } = this.state;
     return (
       <TodoContext.Provider value={this.state}>
-        <Header />
+        <Header setList={this.setList} list={list} />
         <TodoRouter />
       </TodoContext.Provider>
     );
