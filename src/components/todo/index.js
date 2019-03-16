@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import Header from './header';
 import TodoRouter from './todoRouter';
-
-export default class Todo extends Component {
+import { TodoContext } from './todoContext';
+class Todo extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      list: [],
-    };
     this.onAddNewTask = this.onAddNewTask.bind(this);
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.onRemoveTask = this.onRemoveTask.bind(this);
+    this.state = {
+      list: [],
+      addNewTask: this.onAddNewTask,
+      changeStatus: this.onChangeStatus,
+      removeTask: this.onRemoveTask,
+    };
   }
   onRemoveTask(pos) {
     const { list } = this.state;
@@ -30,17 +33,14 @@ export default class Todo extends Component {
     this.setState({ list });
   }
   render() {
-    const { list } = this.state;
+    console.log('todocontext', this.context);
     return (
-      <div>
+      <TodoContext.Provider value={this.state}>
         <Header />
-        <TodoRouter
-          changeStatus={this.onChangeStatus}
-          addNewTask={this.onAddNewTask}
-          removeTask={this.onRemoveTask}
-          list={list}
-        />
-      </div>
+        <TodoRouter />
+      </TodoContext.Provider>
     );
   }
 }
+Todo.contextType = TodoContext;
+export default Todo;

@@ -1,33 +1,23 @@
 import React, { Component } from 'react';
 
+import { TodoContext } from './todoContext';
 import styles from './list.module.scss';
 import Item from './item';
 
-export default class List extends Component {
-  onChangeItemStatus(pos) {
-    this.props.changeStatus(pos);
-  }
-  onRemoveTask(pos) {
-    this.props.removeTask(pos);
-  }
-
+class List extends Component {
   renderItems() {
-    const { list } = this.props;
+    const { list } = this.context;
     if (list.length === 0) {
       return <div>No items</div>;
     }
     return list.map((item, pos) => {
-      return (
-        <Item
-          removeTask={this.onRemoveTask.bind(this, pos)}
-          changeStatus={this.onChangeItemStatus.bind(this, pos)}
-          key={pos}
-          item={item}
-        />
-      );
+      return <Item key={pos} pos={pos} item={item} />;
     });
   }
   render() {
     return <div className={styles.list}>{this.renderItems()}</div>;
   }
 }
+
+List.contextType = TodoContext;
+export default List;

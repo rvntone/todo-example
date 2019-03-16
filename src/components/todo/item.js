@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
+import { TodoContext } from './todoContext';
 
 import styles from './item.module.scss';
 
-export default class Item extends Component {
-  constructor(props) {
-    super(props);
-    this.onChangeStatus = this.onChangeStatus.bind(this);
-    this.onRemoveMe = this.onRemoveMe.bind(this);
+class Item extends Component {
+  onRemoveMe(removeTask) {
+    const { pos } = this.props;
+    removeTask(pos);
   }
-  onRemoveMe() {
-    this.props.removeTask();
-  }
-  onChangeStatus() {
-    this.props.changeStatus();
+  onChangeStatus(changeStatus) {
+    console.log(changeStatus, this);
+    const { pos } = this.props;
+    changeStatus(pos);
   }
   addStatus(itemClassName) {
     const { item } = this.props;
@@ -44,10 +43,22 @@ export default class Item extends Component {
       <div className={itemClassName.join(' ')}>
         <div className={styles.title}>{item.taskName}</div>
         <div className={styles.status}>
-          <button onClick={this.onChangeStatus}>{this.getStatus()}</button>
-          <button onClick={this.onRemoveMe}>x</button>
+          <TodoContext.Consumer>
+            {({ changeStatus, removeTask }) => (
+              <React.Fragment>
+                <button onClick={this.onChangeStatus.bind(this, changeStatus)}>
+                  {this.getStatus()}
+                </button>
+                <button onClick={this.onRemoveMe.bind(this, removeTask)}>
+                  x
+                </button>
+              </React.Fragment>
+            )}
+          </TodoContext.Consumer>
         </div>
       </div>
     );
   }
 }
+
+export default Item;

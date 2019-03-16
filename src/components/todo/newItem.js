@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { withRouter } from 'react-router-dom';
-
+import { TodoContext } from './todoContext';
 class NewItem extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +9,6 @@ class NewItem extends Component {
       taskName: '',
     };
     this.onChange = this.onChange.bind(this);
-    this.onAddNew = this.onAddNew.bind(this);
     this.backToList = this.backToList.bind(this);
   }
   onChange(event) {
@@ -17,10 +16,10 @@ class NewItem extends Component {
       taskName: event.target.value,
     });
   }
-  onAddNew() {
+  onAddNew(addNewTask) {
     const { taskName } = this.state;
     const { history } = this.props;
-    this.props.addNewTask({ taskName });
+    addNewTask({ taskName });
     history.push('/');
   }
   backToList() {
@@ -37,10 +36,17 @@ class NewItem extends Component {
       <div>
         <label htmlFor="taskName">Task:</label>
         <input name="taskName" value={taskName} onChange={this.onChange} />
-        <button disabled={this.shouldBeDisabled()} onClick={this.onAddNew}>
-          Add
-        </button>
-        <button onClick={this.backToList}>Cancel</button>
+        <TodoContext.Consumer>
+          {({ addNewTask }) => (
+            <button
+              disabled={this.shouldBeDisabled()}
+              onClick={this.onAddNew.bind(this, addNewTask)}
+            >
+              Add
+            </button>
+          )}
+        </TodoContext.Consumer>
+        <button onClick={this.backToList.bind}>Cancel</button>
       </div>
     );
   }
